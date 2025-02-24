@@ -32,6 +32,6 @@ jobs:
 
       - name: Update Kubernetes Deployment
         run: |
-        aws eks update-kubeconfig --name eyego-cluster --region us-east-1 
-        kubectl set image deployment/eyego-app eyego-app=123456789012.dkr.ecr.us-east-1.amazonaws.com/eyego-app:latest
+          aws eks update-kubeconfig --name eyego-cluster --region us-east-1 
+          kubectl set image deployment/eyego-app eyego-app=123456789012.dkr.ecr.us-east-1.amazonaws.com/eyego-app:latest
 
