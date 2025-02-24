@@ -52,7 +52,7 @@ Apply the updated deployment:
 ## **3. Update CI/CD Pipeline for GKE**
 ### **3.1 Modify GitHub Actions Workflow**
 Update .github/workflows/deploy.yml with GKE authentication and deployment steps:
----
+
 name: Deploy to GKE
 
 on:
@@ -63,25 +63,20 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
       - name: Authenticate with GCP
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-
       - name: Set up GKE cluster
         run: |
           gcloud container clusters get-credentials eyego-gke-cluster --region us-east1
-
       - name: Build and Push Docker Image
         run: |
           docker build -t gcr.io/your-project-id/eyego-app .
           docker push gcr.io/your-project-id/eyego-app
-
       - name: Deploy to GKE
         run: |
           kubectl apply -f deployment.yaml
