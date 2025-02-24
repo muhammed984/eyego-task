@@ -13,7 +13,7 @@ This document outlines the steps required to migrate an application from AWS EKS
 
 ### **1.3 Configure kubectl for GKE**
 Ensure that `gcloud` CLI is installed and authenticated:
- 
+
  $ gcloud init
  $ gcloud auth login
  $ gcloud container clusters get-credentials eyego-gke-cluster --region us-east1
@@ -26,7 +26,7 @@ Ensure that `gcloud` CLI is installed and authenticated:
 
 1. Enable **Container Registry API** in Google Cloud Console.
 2. Authenticate Docker with GCR:
-   
+ 
   $ gcloud auth configure-docker
    
 
@@ -38,22 +38,21 @@ Ensure that `gcloud` CLI is installed and authenticated:
 
 ### **2.3 Update Kubernetes Deployment for GKE**
 Modify `deployment.yaml` to reference the GCR image:
-```yaml
+---
  containers:
    - name: my-node-app
      image: gcr.io/your-project-id/my-node-app:latest
-```
+
 Apply the updated deployment:
 
   $ kubectl apply -f deployment.yaml
-```
 
 ---
 
 ## **3. Update CI/CD Pipeline for GKE**
 ### **3.1 Modify GitHub Actions Workflow**
-Update `.github/workflows/deploy.yml` with GKE authentication and deployment steps:
-```yaml
+Update .github/workflows/deploy.yml with GKE authentication and deployment steps:
+---
 name: Deploy to GKE
 
 on:
@@ -87,18 +86,17 @@ jobs:
         run: |
           kubectl apply -f deployment.yaml
 
----
 
 ## **4. Verify Deployment**
 Check the status of the pods and services:
   $ kubectl get pods
   $ kubectl get svc
-```
+
 Get the external IP of the application:
 
  kubectl get svc my-node-service
 
----
+
 
 
 
